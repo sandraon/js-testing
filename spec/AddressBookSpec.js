@@ -20,3 +20,12 @@ describe('Address Book', function() { // hakkame testima aadressiraamatu funktsi
         expect(addressBook.getContact(0)).not.toBeDefined(); // testimiseks eeldame, et kui võtame aadressraamatust getContact meetodiga esimese kontakti, siis seda ei eksisteeri
     });
 });
+
+describe('Async Address Book', function() { // testime asünkroonselt
+    it('should grab initial contacts', function() { // testime esialgsete kontaktide saamist
+        var addressBook = new AddressBook();
+
+        addressBook.getInitialContacts(); // kutsume aadressiraamatus välja asünkroonse funktsiooni esialgsete kontaktide saamiseks
+        expect(addressBook.initialComplete).toBe(true); // eeldame, et initialComplete on true
+    });
+});
