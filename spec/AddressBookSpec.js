@@ -22,10 +22,16 @@ describe('Address Book', function() { // hakkame testima aadressiraamatu funktsi
 });
 
 describe('Async Address Book', function() { // testime asünkroonselt
-    it('should grab initial contacts', function() { // testime esialgsete kontaktide saamist
-        var addressBook = new AddressBook();
+    var addressBook = new AddressBook();
 
-        addressBook.getInitialContacts(); // kutsume aadressiraamatus välja asünkroonse funktsiooni esialgsete kontaktide saamiseks
+    beforeEach(function(done) { // kasutame beforeEach funktsiooni ja anname sisendiks done
+        addressBook.getInitialContacts(function() {
+            done(); // kutsume funktsiooni done, mis annab märku, kui asünkroonne funktsioon on lõpetanud ja saame asuda testimise juurde
+        });
+    });
+
+    it('should grab initial contacts', function(done) { // testime esialgsete kontaktide saamist ja anname funktsiooni sisendiks done, et anda raamistikule märku, et see test sõltub asünkroonsest funktsioonist
         expect(addressBook.initialComplete).toBe(true); // eeldame, et initialComplete on true
+        done(); // pärast testimist kutsume jälle funktsiooni done
     });
 });
